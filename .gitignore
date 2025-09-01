@@ -1,0 +1,211 @@
+# ========================================
+# SimpleAPI 项目 Git 忽略文件
+# ========================================
+# 本文件定义了哪些文件和目录不应该推送到 GitHub
+# 注释中标注了每个规则的原因和重要性
+
+# ========================================
+# Python 相关文件 (必须忽略)
+# ========================================
+
+# Python 字节码文件 - 编译生成，不需要版本控制
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python 扩展模块 - 平台相关，不应推送
+*.so
+
+# Python 虚拟环境相关 - 环境相关，不应推送
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ========================================
+# 虚拟环境 (必须忽略)
+# ========================================
+
+# 标准 Python 虚拟环境
+venv/
+env/
+ENV/
+.venv/
+
+# Anaconda 环境 (特别注意)
+# 这些是本地环境，不应该推送
+.conda/
+anaconda3/
+miniconda3/
+
+# ========================================
+# 环境配置文件 (必须忽略)
+# ========================================
+
+# 环境变量文件 - 包含敏感信息
+.env
+.env.local
+.env.production
+.env.development
+
+# ========================================
+# IDE 和编辑器 (建议忽略)
+# ========================================
+
+# Visual Studio Code
+.vscode/
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+*#
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ========================================
+# 操作系统文件 (建议忽略)
+# ========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+*.log
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ========================================
+# Flask 特定文件 (必须忽略)
+# ========================================
+
+# Flask 实例文件夹 - 包含运行时数据
+instance/
+.webassets-cache
+
+# Flask 会话文件
+flask_session/
+
+# ========================================
+# 日志文件 (必须忽略)
+# ========================================
+
+# 各种日志文件
+*.log
+logs/
+log/
+
+# ========================================
+# 临时文件 (必须忽略)
+# ========================================
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.rej
+
+# ========================================
+# 测试相关 (可选忽略)
+# ========================================
+
+# 测试覆盖率报告
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ========================================
+# 部署相关 (可选忽略)
+# ========================================
+
+# 部署配置文件 (如果包含敏感信息)
+# .env.production
+# .env.staging
+
+# ========================================
+# 数据库文件 (必须忽略)
+# ========================================
+
+# SQLite 数据库
+*.db
+*.sqlite
+*.sqlite3
+
+# ========================================
+# 压缩文件 (建议忽略)
+# ========================================
+
+# 压缩包
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ========================================
+# 重要提醒
+# ========================================
+# 
+# 以下文件应该推送到 GitHub:
+# ✅ app.py - 主应用文件
+# ✅ requirements.txt - Python依赖
+# ✅ environment.yml - Anaconda环境配置
+# ✅ README.md - 项目说明
+# ✅ docs/ - 文档目录
+# ✅ .gitignore - 本文件
+# ✅ vercel.json - Vercel部署配置
+# ✅ Procfile - Heroku部署配置
+# ✅ runtime.txt - Python版本配置
+#
+# 以下文件不应该推送:
+# ❌ __pycache__/ - Python缓存
+# ❌ .env - 环境变量
+# ❌ .conda/ - Anaconda环境
+# ❌ *.log - 日志文件
+# ❌ instance/ - Flask实例数据
