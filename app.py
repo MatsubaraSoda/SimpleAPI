@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import re
+import os
 
 app = Flask(__name__)
 
@@ -76,4 +77,8 @@ def evaluate_expression(expression):
         raise ValueError(f"表达式计算失败: {str(e)}")
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # 根据环境变量决定是否启用调试模式
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+    port = int(os.environ.get('PORT', 5000))
+    
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)

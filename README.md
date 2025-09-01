@@ -93,17 +93,33 @@ Content-Type: application/json
 
 ## 部署说明
 
-### Vercel 部署
+### Railway 部署（推荐）
 
-1. 创建 `vercel.json` 配置文件
-2. 连接 GitHub 仓库
-3. 自动部署
+1. **准备项目**
+   - 确保项目在GitHub上
+   - 项目包含 `railway.json` 配置文件
 
-### Railway 部署
+2. **部署步骤**
+   - 访问 [Railway.app](https://railway.app)
+   - 使用GitHub账号登录
+   - 点击 "New Project" → "Deploy from GitHub repo"
+   - 选择您的SimpleAPI仓库
+   - Railway会自动检测Python项目并部署
 
-1. 连接 GitHub 仓库
-2. 选择 Python 环境
-3. 自动构建部署
+3. **环境变量配置**
+   - 在Railway项目设置中可以配置环境变量
+   - 如需要，可以设置 `FLASK_ENV=production`
+
+4. **自动部署**
+   - 每次推送到GitHub主分支，Railway会自动重新部署
+   - 可以在Railway仪表板查看部署状态和日志
+
+### 部署优势
+
+- 🚀 **免费额度**: $5/月免费额度，足够个人项目
+- 🔄 **自动部署**: 连接GitHub，推送即部署
+- 📊 **监控**: 内置性能监控和日志查看
+- 🌐 **全球CDN**: 自动分配最佳服务器位置
 
 ## 安全特性
 
@@ -117,9 +133,12 @@ Content-Type: application/json
 SimpleAPI/
 ├── app.py              # 主应用文件
 ├── requirements.txt    # Python依赖
+├── environment.yml     # Anaconda环境配置
+├── railway.json        # Railway部署配置
 ├── README.md          # 项目说明
 ├── docs/              # 文档目录
-│   └── 需求文档.md    # 需求文档
+│   ├── 需求文档.md    # 需求文档
+│   └── 环境创建日志.md # 环境创建和测试日志
 └── .gitignore         # Git忽略文件
 ```
 
