@@ -353,4 +353,10 @@ if __name__ == "__main__":
     debug_mode = os.environ.get("FLASK_ENV") != "production"
     port = int(os.environ.get("PORT", DEFAULT_PORT))
 
-    app.run(debug=debug_mode, host="0.0.0.0", port=port)
+    # 在生产环境中使用gunicorn，开发环境使用Flask开发服务器
+    if os.environ.get("FLASK_ENV") == "production":
+        # 生产环境：gunicorn会处理启动
+        pass
+    else:
+        # 开发环境：使用Flask开发服务器
+        app.run(debug=debug_mode, host="0.0.0.0", port=port)
