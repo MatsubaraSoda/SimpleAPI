@@ -47,6 +47,9 @@ conda env remove -n SimpleAPI
 
 # 查看当前环境安装的包
 conda list
+
+# 更新环境依赖包
+conda env update -f environment.yml
 ```
 
 ## 运行项目

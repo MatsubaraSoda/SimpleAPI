@@ -1,159 +1,163 @@
 # SimpleAPI
 
-一个**无数据库依赖、实时计算**的后端 API 服务，基于 Python Flask 框架实现。
-
-## 项目特点
-
-- 🚀 **无数据库依赖**: 所有计算基于内存，无需持久化存储
-- ⚡ **实时计算**: 根据用户请求即时计算并返回结果
-- 🔒 **安全可靠**: 严格的输入校验，防止代码注入
-- 🌐 **易于部署**: 支持多种 BaaS 平台自动部署
-
-## 技术栈
-
-- **后端框架**: Python Flask
-- **部署平台**: Vercel、Railway、Render、Fly.io、Heroku 等
-- **代码托管**: GitHub
+一个**无数据库依赖**的Python Flask API服务，提供实时计算和随机数据生成功能。
 
 ## 快速开始
 
 ### 本地运行
 
-#### 使用 Anaconda（推荐）
-
-1. 克隆项目
+1. **克隆项目**
 ```bash
 git clone <your-repo-url>
 cd SimpleAPI
 ```
 
-2. 创建并激活 Anaconda 环境
+2. **安装依赖**
 ```bash
-# 使用环境配置文件创建
+# 使用 Anaconda（推荐）
 conda env create -f environment.yml
-
-# 激活环境
 conda activate SimpleAPI
-```
 
-3. 启动服务
-```bash
-python app.py
-```
-
-#### 使用标准 Python
-
-1. 克隆项目
-```bash
-git clone <your-repo-url>
-cd SimpleAPI
-```
-
-2. 安装依赖
-```bash
+# 或使用 pip
 pip install -r requirements.txt
 ```
 
-3. 启动服务
+3. **启动服务**
 ```bash
 python app.py
 ```
 
-4. 访问 API
+4. **访问API**
 - 首页: http://localhost:5000/
-- 计算API: http://localhost:5000/calculate?expression=2+3*4
+- 计算API: POST http://localhost:5000/calculate
+- 数据生成API: POST http://localhost:5000/generate-table
 
-### API 使用
+## API 接口
 
-#### 计算表达式
+### 1. 计算表达式 API
 
-**GET 请求**
+**接口**: `POST /calculate`
+
+**请求示例**:
+```bash
+curl -X POST http://localhost:5000/calculate \
+  -H "Content-Type: application/json" \
+  -d '{"expression": "2+3*4"}'
 ```
-GET /calculate?expression=2+6*96-(3-6)
-```
 
-**POST 请求**
+**请求格式**:
 ```json
-POST /calculate
-Content-Type: application/json
-
 {
-    "expression": "2+6*96-(3-6)"
+  "expression": "2+3*4"
 }
 ```
 
-**响应示例**
+**成功响应**:
 ```json
 {
-    "expression": "2+6*96-(3-6)",
-    "result": 581.0,
-    "status": "success"
+  "expression": "2+3*4",
+  "value": 14
 }
 ```
 
-## 部署说明
+**错误响应**:
+```json
+{
+  "expression": "2+3*4",
+  "error": "计算错误: 语法错误"
+}
+```
+
+### 2. 生成随机数据表格 API
+
+**接口**: `POST /generate-table`
+
+**请求示例**:
+```bash
+curl -X POST http://localhost:5000/generate-table \
+  -H "Content-Type: application/json" \
+  -d '{"rows": 5}'
+```
+
+**请求格式**:
+```json
+{
+  "rows": 5
+}
+```
+
+**成功响应**:
+```json
+[
+  {
+    "id": 1,
+    "name": "张三",
+    "phone": "13912345678"
+  },
+  {
+    "id": 2,
+    "name": "李四",
+    "phone": "18888888888"
+  },
+  {
+    "id": 3,
+    "name": "王五",
+    "phone": "17777777777"
+  }
+]
+```
+
+**错误响应**:
+```json
+{
+  "error": {
+    "code": 400,
+    "message": "数据量错误，rows参数应在1-32之间",
+    "details": "请检查请求参数格式和范围"
+  }
+}
+```
+
+## 参数说明
+
+### 计算表达式 API
+- **expression** (string, 必填): 算术表达式，支持 +、-、*、/、() 和数字
+
+### 生成数据表格 API
+- **rows** (integer, 必填): 生成的行数，范围 1-32
+- **返回字段**: 固定返回 id、name、phone 三个字段
+
+## 部署
 
 ### Railway 部署（推荐）
 
-1. **准备项目**
-   - 确保项目在GitHub上
-   - 项目包含 `railway.json` 配置文件
+1. 将项目推送到 GitHub
+2. 访问 [Railway.app](https://railway.app)
+3. 连接 GitHub 仓库
+4. 自动部署完成
 
-2. **部署步骤**
-   - 访问 [Railway.app](https://railway.app)
-   - 使用GitHub账号登录
-   - 点击 "New Project" → "Deploy from GitHub repo"
-   - 选择您的SimpleAPI仓库
-   - Railway会自动检测Python项目并部署
+**在线地址**: https://simple-api-exercises.up.railway.app
 
-3. **环境变量配置**
-   - 在Railway项目设置中可以配置环境变量
-   - 如需要，可以设置 `FLASK_ENV=production`
+## 技术栈
 
-4. **自动部署**
-   - 每次推送到GitHub主分支，Railway会自动重新部署
-   - 可以在Railway仪表板查看部署状态和日志
-
-### 部署优势
-
-- 🚀 **免费额度**: $5/月免费额度，足够个人项目
-- 🔄 **自动部署**: 连接GitHub，推送即部署
-- 📊 **监控**: 内置性能监控和日志查看
-- 🌐 **全球CDN**: 自动分配最佳服务器位置
-
-## 安全特性
-
-- 表达式字符白名单验证
-- 仅支持数字、运算符、括号
-- 防止任意代码执行
+- **后端**: Python Flask
+- **数据生成**: Faker 库
+- **部署**: Railway
+- **环境**: Python 3.11
 
 ## 项目结构
 
 ```
 SimpleAPI/
-├── app.py              # 主应用文件
-├── requirements.txt    # Python依赖
-├── environment.yml     # Anaconda环境配置
-├── railway.json        # Railway部署配置
-├── README.md          # 项目说明
-├── docs/              # 文档目录
-│   ├── 需求文档.md    # 需求文档
-│   └── 环境创建日志.md # 环境创建和测试日志
-└── .gitignore         # Git忽略文件
+├── app.py                    # 主应用文件
+├── requirements.txt          # Python依赖
+├── environment.yml           # Anaconda环境配置
+├── module/                   # 功能模块
+│   ├── validator.py         # 参数验证
+│   ├── calculator.py        # 计算逻辑
+│   └── generate_table.py    # 数据生成
+└── docs/                    # 文档目录
 ```
-
-## 开发计划
-
-- [x] 基础项目结构
-- [x] 计算表达式API
-- [x] 安全校验逻辑
-- [ ] 更多数学函数支持
-- [ ] 性能优化
-- [ ] 单元测试
-
-## 贡献
-
-欢迎提交 Issue 和 Pull Request！
 
 ## 许可证
 
